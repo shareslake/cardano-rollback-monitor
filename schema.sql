@@ -6,7 +6,7 @@ CREATE SCHEMA rollback_monitor;
 
 CREATE TABLE rollback_monitor.status (
    id bool PRIMARY KEY DEFAULT TRUE,
-   in_progress bool DEFAULT FALSE,
+   in_progress bool DEFAULT FALSE
 );
 
 
@@ -27,7 +27,7 @@ CREATE OR REPLACE FUNCTION stop_rollback() RETURNS trigger as $$
 BEGIN
   IF ((SELECT in_progress FROM rollback_monitor.status) = TRUE) THEN
     UPDATE rollback_monitor.status SET in_progress=FALSE;
-    PERFORM pg_notify('rollback_monitor', 'rollback finished');    
+    PERFORM pg_notify('rollback_monitor', 'rollback finished');
   END IF;
   RETURN NEW;
 EXCEPTION WHEN OTHERS THEN
