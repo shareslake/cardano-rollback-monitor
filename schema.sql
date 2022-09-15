@@ -9,6 +9,7 @@ CREATE TABLE rollback_monitor.status (
    in_progress bool DEFAULT FALSE
 );
 
+INSERT INTO rollback_monitor.status(in_progress) VALUES (FALSE);
 
 -- Rollback starts when a block is deleted
 CREATE OR REPLACE FUNCTION start_rollback() RETURNS trigger as $$
